@@ -1,5 +1,8 @@
 # SageMaker TensorFlow Serving Container
 
+##### Differences from upstream
+This fork shows how to modify the SageMaker TensorFlow Serving Container to accept images using the reserved `'b64'` key when making requests to TensorFlow Serving's REST interface. Models also need to be modified to decode the images received as input. See container/sagemaker/tensorflow-serving.js, test/resources/models/create_cifar_image.py, and scripts/curl.sh for details.
+
 SageMaker TensorFlow Serving Container is an a open source project that builds 
 docker images for running TensorFlow Serving on 
 [Amazon SageMaker](https://aws.amazon.com/documentation/sagemaker/).
