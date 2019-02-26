@@ -8,7 +8,10 @@ function invocations(r) {
         json_request(r)
     } else if ('text/csv' == ct) {
         csv_request(r)
-    } else {
+    } else if ('image/png' == ct || 'image/jpeg' == ct) {
+        b64image_request(r)
+    }
+    else {
         return_error(r, 415, 'Unsupported Media Type: ' + (ct || 'Unknown'))
     }
 }
@@ -201,5 +204,12 @@ function csv_request(r) {
     // end instances json - omit outer list for single example
     json += lines.length == 1 ? '}' : ']}'
 
+    tfs_json_request(r, json)
+}
+
+function b64image_request(r) {
+    // single base64 image request
+    var b64 = '{"b64":"' + r.requestBody.toString('base64') + '"}'
+    var json = '{"instances":[' + b64 + ']}'
     tfs_json_request(r, json)
 }
